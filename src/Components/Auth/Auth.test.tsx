@@ -7,9 +7,9 @@ import { ProtectedRoute } from "./Auth";
 test('User is redirected to new page if has logged in', () => {
     const globalContext: AlbumContext = {
         isLoggedin: true,
-        showLoginDialod: false,
+        showLoginDialog: false,
         toggleIsLoggedin: ()=> {} ,
-        toggleShowLoginDialod: ()=> {}
+        toggleShowLoginDialog: ()=> {}
       }
     const{getByTestId} = render(
         <AlbumZ.Provider value={globalContext}>

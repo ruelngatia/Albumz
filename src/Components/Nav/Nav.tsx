@@ -16,7 +16,7 @@ export default function Nav() {
           <button 
             id="btn-login"
             className="ml-auto px-3 py-1 rounded-lg border border-purple text-purple hover:bg-purple hover:text-white h-fit"
-            onClick={() => context?.toggleShowLoginDialod()}
+            onClick={() => context?.toggleShowLoginDialog()}
           >
             Login
           </button>
