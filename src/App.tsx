@@ -18,21 +18,21 @@ export const AlbumZ = React.createContext<AlbumContext|null>(null);
 function App() {
 
   const [isLoggedin,setisLoggedin] = useState<boolean>(new AuthService().isLoggedIn());
-  const [showLoginDialod,setshowLoginDialod] = useState<boolean>(false);
+  const [showLoginDialog,setshowLoginDialog] = useState<boolean>(false);
 
   const toggleIsLoggedin = (state: boolean)=>{
     setisLoggedin(state)
   }
 
-  const toggleShowLoginDialod = ()=>{
-    setshowLoginDialod(!showLoginDialod)
+  const toggleShowLoginDialog = ()=>{
+    setshowLoginDialog(!showLoginDialog)
   }
 
   let globalContext: AlbumContext = {
     isLoggedin: isLoggedin,
-    showLoginDialod: showLoginDialod,
+    showLoginDialog: showLoginDialog,
     toggleIsLoggedin,
-    toggleShowLoginDialod
+    toggleShowLoginDialog
   }
   return (
     <AlbumZ.Provider value={globalContext}>

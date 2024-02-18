@@ -56,7 +56,7 @@ export default function Index() {
           <img className="m-auto" src={travel} alt="travel" />
         </div>
       </section>
-      <Dialog open={context?.showLoginDialod ?? false} onClose={()=>context?.toggleShowLoginDialod()} 
+      <Dialog open={context?.showLoginDialog ?? false} onClose={()=>context?.toggleShowLoginDialog()} 
       fullWidth maxWidth='xs'>
         <Login/>
       </Dialog>

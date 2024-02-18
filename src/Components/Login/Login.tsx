@@ -25,7 +25,7 @@ const navigator = useNavigate();
            onSuccess={credentialResponse => {
             new AuthService().setLoginToken(credentialResponse.credential ?? '');
             context?.toggleIsLoggedin(true)
-            context?.toggleShowLoginDialod()
+            context?.toggleShowLoginDialog()
             navigator('/Home')
           }}
           onError={() => {

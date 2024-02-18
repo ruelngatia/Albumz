@@ -1,6 +1,6 @@
 export type AlbumContext = {
     isLoggedin: boolean;
-    showLoginDialod: boolean;
+    showLoginDialog: boolean;
     toggleIsLoggedin: Function;
-    toggleShowLoginDialod: Function;
+    toggleShowLoginDialog: Function;
 }
