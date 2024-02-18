@@ -7,9 +7,9 @@ import { AlbumContext } from "../../Type/AlbumContext";
 test('Login and register button is not visible when user is logged in', () => {
     const globalContext: AlbumContext = {
         isLoggedin: false,
-        showLoginDialod: false,
+        showLoginDialog: false,
         toggleIsLoggedin: ()=> {} ,
-        toggleShowLoginDialod: ()=> {}
+        toggleShowLoginDialog: ()=> {}
       }
     const{getAllByRole} = render(
         <AlbumZ.Provider value={globalContext}>
@@ -23,9 +23,9 @@ test('Login and register button is not visible when user is logged in', () => {
   test('User profile is visible when user is logged in', () => {
     const globalContext: AlbumContext = {
         isLoggedin: true,
-        showLoginDialod: false,
+        showLoginDialog: false,
         toggleIsLoggedin: ()=> {} ,
-        toggleShowLoginDialod: ()=> {}
+        toggleShowLoginDialog: ()=> {}
       }
     const{getByTestId} = render(
         <AlbumZ.Provider value={globalContext}>

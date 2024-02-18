@@ -10,7 +10,7 @@ export const ProtectedRoute: React.FC<Props> = ({ children }) => {
   const context = useContext(AlbumZ);
 
   if (context?.isLoggedin === false) {
-    context.toggleShowLoginDialod();
+    context.toggleShowLoginDialog();
     return <Navigate to="/" replace />;
   }
 
