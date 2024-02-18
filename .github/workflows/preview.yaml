@@ -1,0 +1,49 @@
+name: Vercel preview deoplyment
+
+env:
+    VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
+    VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
+
+on:
+    push:
+        branches:
+            - development
+            
+jobs:
+
+    Eslint:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v1
+        - uses: stefanoeb/eslint-action@1.0.2
+          with:
+            files: src/
+            
+    Test:
+        runs-on: ubuntu-latest
+        steps:
+
+            - uses: actions/checkout@v3
+
+            - uses: actions/setup-node@v3
+              with: 
+                node-version: 18
+
+            - run: npm ci
+            - run: npm run test
+
+    Deploy-preview:
+        needs: [Test]
+        runs-on: ubuntu-latest
+        steps:
+
+            - uses: actions/checkout@v3
+
+            - name: Install vercel CLI
+              run: npm install --global vercel
+
+            - name: pull vercel environment information
+              run: vercel pull --yes --environment=preview --token=${{secrets.VERCEL_TOKEN}}
+              
+            - name: deploy project artifacts
+              run: vercel deploy --prebuilt --token=${{secrets.VERCEL_TOKEN}}
