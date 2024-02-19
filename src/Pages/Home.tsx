@@ -13,11 +13,11 @@ export default function Home() {
   const navigator = useNavigate();
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", width: 200 },
-    { field: "username", headerName: "Username", width: 150 },
-    { field: "email", headerName: "Email", width: 170 },
+    { field: "name", headerName: "Name", width: 300 },
+    { field: "username", headerName: "Username", width: 210 },
+    { field: "email", headerName: "Email", width: 200 },
     { field: "phone", headerName: "Phone", width: 200 },
-    { field: "albumCount", headerName: "Albums", width: 90 },
+    { field: "albumCount", headerName: "Albums", width: 120 },
     {
       field: "link",
       headerName: "Link",
@@ -64,9 +64,9 @@ export default function Home() {
 
 
   return (
-    <div className="px-4 pt-3 mb:px-10 bg-greyUser pb-4">
-      <h1 className="text-2xl font-thin text-opacity-65">Users</h1>
-      <div className="bg-white rounded-xl shadow-xl mt-2">
+    <div className="px-4 pt-3 mb:px-10 bg-greyUser pb-4 flex flex-col items-center">
+      <h1 className="text-2xl font-thin text-opacity-65 w-11/12 lg:w-5/6">Users</h1>
+      <div className="bg-white rounded-xl shadow-xl mt-2 w-11/12 lg:w-5/6">
         <DataGrid
           rows={users}
           columns={columns}

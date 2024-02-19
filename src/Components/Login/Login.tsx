@@ -4,10 +4,15 @@ import { GoogleLogin } from '@react-oauth/google';
 import { AuthService } from '../../Service/AuthService';
 import { AlbumZ } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function Login() {
 const context = useContext(AlbumZ);
 const navigator = useNavigate();
+
+const toggleLoginInfo = ()=>{
+  toast.info("Sign in with google for easier use");
+}
 
   return (
     <section data-testid='login-component' className=' flex flex-col justify-center items-center pt-11 pb-16 space-y-3'>
@@ -16,9 +21,7 @@ const navigator = useNavigate();
         <input className='border rounded-sm w-2/3 px-2 py-2 border-grey focus:border-purple' type="email" placeholder='Email' />
         <input className='border rounded-sm w-2/3 px-2 py-2 border-grey focus:border-purple' type="password" placeholder='Password' />
         <button className='text-white text-xl w-2/3 font-semibold rounded-md py-1 px-2 bg-purple'
-         onClick={()=>{
-          
-         }} 
+         onClick={toggleLoginInfo} 
         >Login</button>
         <p className='hover:underline text-purple'>Forgot password?</p>
         <GoogleLogin

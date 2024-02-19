@@ -12,7 +12,7 @@ export default function User() {
   const navigator = useNavigate();
 
   const columns: GridColDef[] = [
-    { field: "no", headerName: "No", width: 120,
+    { field: "no", headerName: "No", width: 220,
       renderCell: (params)=>{
         return(<span>{params.id}</span>)
       }  
@@ -21,7 +21,7 @@ export default function User() {
     {
       field: "link",
       headerName: "Link",
-      width: 50,
+      width: 100,
       renderCell: (params) => {
         return <OpenInNewIcon onClick={()=>navigator(`/album/${params.row.id}`) } />;
       },
@@ -35,8 +35,10 @@ export default function User() {
   },[])
 
   return (
-    <div className="px-6">
-      <h1 className="text-2xl mb-2 font-thin text-opacity-65">Albums</h1>
+    <div className="px-6 flex flex-col items-center bg-greyUser">
+      <h1 className="text-2xl mb-2 font-thin text-opacity-65 w-11/12 lg:w-5/6 ">Albums</h1>
+      <div className="w-11/12 lg:w-5/6 bg-white shadow-xl">
+
       <DataGrid
           rows={albums}
           columns={columns}
@@ -47,6 +49,7 @@ export default function User() {
           }}
           pageSizeOptions={[5, 10]}
         />
+      </div>
     </div>
   );
 }
