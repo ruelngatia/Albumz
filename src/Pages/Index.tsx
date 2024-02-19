@@ -26,7 +26,8 @@ export default function Index() {
           {" "}
           Capture and gather photos. Relive cherished moments together.
         </p>
-        <button className="float-left bg-white text-purple w-fit mt-8 rounded-2xl font-medium text-xl py-1 px-3">
+        <button className="float-left bg-white text-purple w-fit mt-8 rounded-xl font-semibold text-xl py-1 px-3"
+        onClick={()=> context?.toggleShowLoginDialog()}>
           Join us
         </button>
       </section>
