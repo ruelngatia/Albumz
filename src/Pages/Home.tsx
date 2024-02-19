@@ -6,10 +6,12 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
 import { APIService } from "../Service/APIService";
 import { toast } from "react-toastify";
+import Loader from "../Components/Loader/Loader";
 
 export default function Home() {
   const [users, setUsers] = useState<UserModel[]>([]);
   const [albums, setAlbums] = useState<AlbumModel[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigator = useNavigate();
 
   const columns: GridColDef[] = [
@@ -24,9 +26,13 @@ export default function Home() {
       width: 50,
       renderCell: (params) => {
         return (
-        <span >
-          <OpenInNewIcon sx={{"&:hover":{cursor: "grab"}}} onClick={()=>navigator(`/user/${params.row.id}`)} />
-        </span>);
+          <span>
+            <OpenInNewIcon
+              sx={{ "&:hover": { cursor: "grab" } }}
+              onClick={() => navigator(`/user/${params.row.id}`)}
+            />
+          </span>
+        );
       },
     },
   ];
@@ -41,7 +47,8 @@ export default function Home() {
           .then((res) => setAlbums(res))
           .catch((error) => toast.error("Album was not found"));
       })
-      .catch((error) => toast.error("Users were not found"));
+      .catch((error) => toast.error("Users were not found"))
+      .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
@@ -62,21 +69,26 @@ export default function Home() {
     mapAlbumz(users, albums);
   }, [albums]);
 
-
   return (
     <div className="px-4 pt-3 mb:px-10 bg-greyUser pb-4 flex flex-col items-center">
-      <h1 className="text-2xl font-thin text-opacity-65 w-11/12 lg:w-5/6">Users</h1>
+      <h1 className="text-2xl font-thin text-opacity-65 w-11/12 lg:w-5/6">
+        Users
+      </h1>
       <div className="bg-white rounded-xl shadow-xl mt-2 w-11/12 lg:w-5/6">
-        <DataGrid
-          rows={users}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <DataGrid
+            rows={users}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
+          />
+        )}
       </div>
     </div>
   );
