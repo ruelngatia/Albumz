@@ -3,7 +3,7 @@ import pin from "../assets/pin.jpg";
 import travel from "../assets/travel.png"
 import Dialog from '@mui/material/Dialog';
 import Login from "../Components/Login/Login";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AlbumZ } from "../App";
 
 export default function Index() {

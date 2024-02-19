@@ -22,6 +22,9 @@ function App() {
 
   const toggleIsLoggedin = (state: boolean)=>{
     setisLoggedin(state)
+    if(isLoggedin){
+      window.location.href = '/'
+    }
   }
 
   const toggleShowLoginDialog = ()=>{

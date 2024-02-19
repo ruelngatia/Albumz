@@ -1,11 +1,27 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import logo from "../../assets/logo.png";
 import { AlbumZ } from "../../App";
-import { Avatar } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 import { toast } from "react-toastify";
+import { AuthService } from "../../Service/AuthService";
 
 export default function Nav() {
   const context = useContext(AlbumZ);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    context?.toggleIsLoggedin(); 
+    new AuthService().removeLoginToken()  
+    handleClose();
+  };
 
   const toggleLoginInfo = ()=>{
     context?.toggleShowLoginDialog();
@@ -16,7 +32,16 @@ export default function Nav() {
     <div data-testid="nav-bar" className="flex items-center flex-wrap px-2 sticky top-0 bg-white z-50">
       <img src={logo} alt="logo" className="w-28" />
       {context?.isLoggedin ? (
-        <Avatar data-testid="user-profile" className="ml-auto" src="/broken-image.jpg" />
+        <div className="ml-auto">
+          <Avatar data-testid="user-profile" src="/broken-image.jpg" onClick={handleClick} />
+          <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+        </div>
       ) : (
         <>
           <button 
