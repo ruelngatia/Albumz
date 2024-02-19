@@ -5,50 +5,64 @@ import { APIService } from "../Service/APIService";
 import { toast } from "react-toastify";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import Loader from "../Components/Loader/Loader";
 
 export default function User() {
   const { albumId } = useParams();
-  const [albums,setAlbums] = useState<AlbumModel[]>([]);
+  const [albums, setAlbums] = useState<AlbumModel[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigator = useNavigate();
 
   const columns: GridColDef[] = [
-    { field: "no", headerName: "No", width: 220,
-      renderCell: (params)=>{
-        return(<span>{params.id}</span>)
-      }  
-  },
+    {
+      field: "no",
+      headerName: "No",
+      width: 220,
+      renderCell: (params) => {
+        return <span>{params.id}</span>;
+      },
+    },
     { field: "title", headerName: "Title", width: 700 },
     {
       field: "link",
       headerName: "Link",
       width: 100,
       renderCell: (params) => {
-        return <OpenInNewIcon onClick={()=>navigator(`/album/${params.row.id}`) } />;
+        return (
+          <OpenInNewIcon onClick={() => navigator(`/album/${params.row.id}`)} />
+        );
       },
     },
-  ]
+  ];
 
-  useEffect(()=>{
-    new APIService().getAlbums(`${albumId}`)
-    .then((albums)=> setAlbums(albums))
-    .catch((error) => toast.error('Albums were not fetched'))
-  },[])
+  useEffect(() => {
+    new APIService()
+      .getAlbums(`${albumId}`)
+      .then((albums) => setAlbums(albums))
+      .catch((error) => toast.error("Albums were not fetched"))
+      .finally(()=> setIsLoading(false))
+  }, []);
 
   return (
     <div className="px-6 flex flex-col items-center bg-greyUser">
-      <h1 className="text-2xl mb-2 font-thin text-opacity-65 w-11/12 lg:w-5/6 ">Albums</h1>
+      <h1 className="text-2xl mb-2 font-thin text-opacity-65 w-11/12 lg:w-5/6 ">
+        Albums
+      </h1>
       <div className="w-11/12 lg:w-5/6 bg-white shadow-xl">
-
-      <DataGrid
-          rows={albums}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <DataGrid
+            rows={albums}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
+          />
+        )}
       </div>
     </div>
   );
